@@ -33,6 +33,7 @@ Route::get('/alumnoReg',[ViewsController::class,'alumnoRegView']);
 Route::get('/mainDashboard',[ViewsController::class,'mainDashboardView']);
 
 Route::get('/products',[ProductsController::class,'index']);
+Route::get('/products/register',[ProductsController::class,'newProduct']);
 Route::get('/categories',[CategoriesController::class,'index']);
 
 Route::get('/clients',[ClientsController::class,'index']);
