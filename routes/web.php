@@ -21,6 +21,10 @@ Route::get('/classes', function () {
     return view('clases');
 });
 
+Route::get('/dinamicJSON', function () {
+    return view('dinamicJSON');
+});
+
 Route::get('/inicio',[ViewsController::class,'inicioView']);
 Route::get('/contacto',[ViewsController::class,'contactView']);
 Route::get('/column',[ViewsController::class,'columnView']);

@@ -32,12 +32,12 @@
             <button type="button" class="btn btn-secondary" onclick="searchName()">BUSCAR</button>
         </div>
         <div class="col" style="text-align: end;">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Nuevo Cliente</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#clientModal"> + Nuevo Cliente</button>
         </div>   
     </div>
 
     <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="clientModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
@@ -113,7 +113,7 @@
 
 @section('js')
 <script>
-    
+
         $(document).ready(function() {
             let students = [];
 

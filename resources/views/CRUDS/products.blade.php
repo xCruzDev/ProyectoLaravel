@@ -32,9 +32,53 @@
             <button type="button" class="btn btn-secondary" onclick="searchName()">BUSCAR</button>
         </div>
         <div class="col" style="text-align: end;">
-            <button class="btn btn-success">Nuevo Producto</button>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal"> + Nuevo Producto</button>
         </div>   
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-4" id="exampleModalLabel">Nuevo Producto</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row row-cols-3" style="margin-bottom: 20px;">
+                    <div class="col">
+                        Usuario:
+                        <input type="text" placeholder="USERNAME" class="form-control" id="user_name">
+                    </div>
+                </div>
+                <div class="row row-cols-2">
+                    <div class="col">
+                        Nombre:
+                        <input type="text" placeholder="NOMBRE" class="form-control" id="name" style="margin-right: 10px;">    
+                    </div>
+                    <div class="col">
+                        Apellido:
+                        <input type="text" placeholder="APELLIDO" class="form-control" id="last_name">
+                    </div>
+                </div><br>
+                <div class="row row-cols-2">
+                    <div class="col">
+                        Saldo:
+                        <input type="number" placeholder="SALDO" class="form-control" id="balance">
+                    </div>
+                    <div class="col">
+                        Limite de Credito:
+                        <input type="number" placeholder="LIMITE CREDITO" class="form-control" id="credit_limit">
+                    </div>
+                </div><br>
+        </div>
+            <div class="text-center">
+                <button type="button" class="btn btn-success" id="confirm-reg" onclick="location.href='/clients/insert';" style="margin-bottom:25px; width: 50%;">Registrar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    
 
     <table class="table table-hover table-striped text-center">
         <thead class="table-info">

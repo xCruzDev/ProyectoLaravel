@@ -5,7 +5,7 @@
 @endsection
 
 @section('body')
-<div class="container">
+<div class="container" style="margin-top: 5%">
     <div class="row">
         <div class="col text-center">
             <select name="ColorCBX" id="colorType">
@@ -29,6 +29,10 @@
 <script>
 $(document).ready(function(){
     
+    $('#RandColor').hide();
+    $('#textColor').hide();
+
+
     $('#colorType').change(function() {
     if ($(this).val() === 'colorRandom') {
         $('#textColor').hide();

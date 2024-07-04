@@ -35,6 +35,9 @@
                         <li>
                             <a class="nav-link" href="/classes">Clases y Eventos</a>
                         </li>
+                        <li>
+                            <a class="nav-link" href="/dinamicJSON">JSON Dinamico</a>
+                        </li>
                     </ul>
                 </div>
             </div>
