@@ -24,4 +24,15 @@ class ClientsController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         }
     }
+
+    public function store () {
+        // clients::insert([
+        //     'user_name' => $user_name,
+        //     'name' => $name,
+        //     'last_name' => $last_name,
+        //     'balance' => $balance,
+        //     'credit_limit' => $credit_limit,
+        //     'discount' => $discount
+        // ]);
+    }
 }

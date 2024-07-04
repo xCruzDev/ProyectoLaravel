@@ -17,6 +17,10 @@ Route::get('/login', function () {
     return view('Login');
 });
 
+Route::get('/classes', function () {
+    return view('clases');
+});
+
 Route::get('/inicio',[ViewsController::class,'inicioView']);
 Route::get('/contacto',[ViewsController::class,'contactView']);
 Route::get('/column',[ViewsController::class,'columnView']);
@@ -27,7 +31,8 @@ Route::get('/mainDashboard',[ViewsController::class,'mainDashboardView']);
 Route::get('/products',[ProductsController::class,'index']);
 Route::get('/categories',[CategoriesController::class,'index']);
 
-Route::get('/clients',[ClientsController::class,'index']);  /*ruta para las mostrar/consultar la tabla*/
+Route::get('/clients',[ClientsController::class,'index']);
+Route::get('/clients/insert',[ClientsController::class,'store']);  /*ruta para las mostrar/consultar la tabla*/
 Route::get('/get-clients/{id}',[ClientsController::class,'show']);
 
 Route::get('/addresses',[AddressesController::class,'view']);
