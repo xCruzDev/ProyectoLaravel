@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->integer('quantity');
+            $table->double('price');
             $table->unsignedBigInteger('category_id');
 
             $table->foreign('category_id')

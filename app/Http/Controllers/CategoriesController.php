@@ -9,10 +9,15 @@ use App\Models\Category;
 
 class CategoriesController extends Controller
 {
-    public function index(){
+    public function view(){
 
         $categories = Category::All();
         return view('cruds.categories', compact ('categories'));
+    }
+
+    public function index() {
+        $categories = Category::All();
+        return response()->json($categories);
     }
 
     public function show($id)

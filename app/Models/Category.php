@@ -10,6 +10,7 @@ class Category extends Model
     protected $table = 'categories';
     protected $primaryKey = 'id';
     protected $fillable = ['description'];
+    public $timestamps = false;
     use HasFactory;
 
     public function products () {
