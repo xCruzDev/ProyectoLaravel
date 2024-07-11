@@ -46,6 +46,20 @@ class ProductsController extends Controller
         return response()->json($products);
     }
 
+    public function priceASC() {
+        $products = Product::with('categories:id,description')
+                            ->orderBy('price','ASC')
+                            ->get();
+        return response()->json($products);
+    }
+
+    public function priceDESC() {
+        $products = Product::with('categories:id,description')
+                            ->orderBy('price','DESC')
+                            ->get();
+        return response()->json($products);
+    }
+
     public function show($id)
     {
         $product = Product::find($id);
@@ -61,7 +75,14 @@ class ProductsController extends Controller
         $result = Product::with('categories:id,description')
                 ->where('name', 'like',$name . '%')
                 ->get();
-    return response()->json($result);
+        return response()->json($result);
+    }
+
+    public function categoryProducts($Cid) {
+        $result = Product::with('categories:id,description')
+                ->where('category_id','=', $Cid)
+                ->get();
+        return response()->json($result);
     }
 
     public function newProduct (Request $request) {

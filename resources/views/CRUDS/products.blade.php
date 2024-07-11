@@ -13,7 +13,7 @@
 <h1>Productos</h1><br><br>
 <div class="container">
     {{-- Seccion de busqueda y filtro --}}
-    <div class="row row-cols-3">
+    <div class="row row-cols-4 text-center">
         <div class="col">
             <div class="dropdown me-1">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
@@ -22,15 +22,21 @@
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#" onclick="filter_prodASC()">A-Z</a></li>
                     <li><a class="dropdown-item" href="#" onclick="filter_prodDESC()">Z-A</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filter_quantASC()">Mayor Cantidad</a></li>
-                    <li><a class="dropdown-item" href="#" onclick="filter_quantDESC()">Menor Cantidad</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filter_quantASC()">Menor a Mayor Cantidad</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filter_quantDESC()">Mayor a Menor Cantidad</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filter_priceASC()">Menor a Mayor Precio</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="filter_priceDESC()">Mayor a Menor Precio </a></li>
                 </ul>
-                <button class="btn" id="btnRst" onclick="cargarProductos()">🔄️</button>
+                <button class="btn btn-outline-info" id="btnRst" onclick="reset()" style="margin-left: 40px">Restablecer</button>
             </div>
         </div>
         <div class="col">
-            <label for="nombre" class="text">Nombre del Producto:</label>
-            <input placeholder="Buscar..." type="text" id="productSearch">
+            <select class="form-select" name="category_id" id="F_category_id" style="width: auto; margin-left:35px">
+                <option selected disabled hidden>- Filtrar Categoria -</option>
+            </select>
+        </div>
+        <div class="col">
+            <input class="form-control" placeholder="Buscar Producto..." type="text" id="productSearch">
         </div>
         <div class="col" style="text-align: end;">
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#productModal"> + Nuevo Producto</button>
@@ -166,6 +172,13 @@
 @section('js')
     <script>
 
+        function reset() {
+            $('#productSearch').val('');
+            $('#F_category_id').val('- Filtrar Categoria -');
+            $('#btnRst').hide();
+            cargarProductos();
+        }
+
         function cargarProductos() {
             $.ajax({
                 url: '/products/get',
@@ -189,8 +202,6 @@
                     });
                 }
             });
-
-            $('#productSearch').val('');
         }
 
         function cargarCategorias() {
@@ -199,7 +210,7 @@
                 method: 'GET',
                 success: function(data) {
                     console.log(data)
-                    const categorySelect = $('#category_id, #E_category_id');
+                    const categorySelect = $('#category_id, #E_category_id, #F_category_id');
                     data.forEach(category => {
                         const option = `<option value="${category.id}">${category.description}</option>`;
                         categorySelect.append(option);
@@ -209,6 +220,7 @@
                     console.log(error)
                 }
             });
+            
         }
 
         function obtenerDatos(id){
@@ -227,6 +239,7 @@
         }
 
         function searchProduct(name){
+            $('#btnRst').show();
             $.ajax({
                 url: `/products/search/${name}`,
                 method: 'GET',
@@ -241,7 +254,7 @@
                             <td>$ ${product.price}</td>
                             <td>${product.categories.description}</td>
                             <td>
-                                <a href="/productos/actualizar/vista?id=${product.id}" class="btn btn-warning">Actualizar</a>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
                                 <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
                             </td>
                         </tr>`;
@@ -255,6 +268,7 @@
         }
 
         function filter_prodASC(){
+            $('#btnRst').show();
             $.ajax({
                 url: '/products/filter/product/ASC',
                 method: 'GET',
@@ -269,7 +283,7 @@
                             <td>$ ${product.price}</td>
                             <td>${product.categories.description}</td>
                             <td>
-                                <a href="/products/edit/?id=${product.id}" class="btn btn-warning">Actualizar</a>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
                                 <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
                             </td>
                         </tr>`;
@@ -278,6 +292,149 @@
                 }
             });
         }
+
+        function filter_prodDESC(){
+            $('#btnRst').show();
+            $.ajax({
+                url: '/products/filter/product/DESC',
+                method: 'GET',
+                success: function(data) {
+                    const tableBody = $('#table-body-products');
+                    tableBody.empty();
+                    data.forEach(product => {
+                        const row = `<tr class="row row-cols-6">
+                            <td>${product.name}</td>
+                            <td>${product.description}</td>
+                            <td>${product.quantity}</td>
+                            <td>$ ${product.price}</td>
+                            <td>${product.categories.description}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
+                                <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
+                            </td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                }
+            });
+        }
+
+        function filter_quantASC(){
+            $('#btnRst').show();
+            $.ajax({
+                url: `/products/filter/quantity/ASC`,
+                method: 'GET',
+                success: function(data) {
+                    const tableBody = $('#table-body-products');
+                    tableBody.empty();
+                    data.forEach(product => {
+                        const row = `<tr class="row row-cols-6">
+                            <td>${product.name}</td>
+                            <td>${product.description}</td>
+                            <td>${product.quantity}</td>
+                            <td>$ ${product.price}</td>
+                            <td>${product.categories.description}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
+                                <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
+                            </td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        }
+
+        function filter_quantDESC(){
+            $('#btnRst').show();
+            $.ajax({
+                url: `/products/filter/quantity/DESC`,
+                method: 'GET',
+                success: function(data) {
+                    const tableBody = $('#table-body-products');
+                    tableBody.empty();
+                    data.forEach(product => {
+                        const row = `<tr class="row row-cols-6">
+                            <td>${product.name}</td>
+                            <td>${product.description}</td>
+                            <td>${product.quantity}</td>
+                            <td>$ ${product.price}</td>
+                            <td>${product.categories.description}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
+                                <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
+                            </td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        }
+
+        function filter_priceASC(){
+            $('#btnRst').show();
+            $.ajax({
+                url: `/products/filter/price/ASC`,
+                method: 'GET',
+                success: function(data) {
+                    const tableBody = $('#table-body-products');
+                    tableBody.empty();
+                    data.forEach(product => {
+                        const row = `<tr class="row row-cols-6">
+                            <td>${product.name}</td>
+                            <td>${product.description}</td>
+                            <td>${product.quantity}</td>
+                            <td>$ ${product.price}</td>
+                            <td>${product.categories.description}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
+                                <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
+                            </td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        }
+
+        function filter_priceDESC(){
+            $('#btnRst').show();
+            $.ajax({
+                url: `/products/filter/price/DESC`,
+                method: 'GET',
+                success: function(data) {
+                    const tableBody = $('#table-body-products');
+                    tableBody.empty();
+                    data.forEach(product => {
+                        const row = `<tr class="row row-cols-6">
+                            <td>${product.name}</td>
+                            <td>${product.description}</td>
+                            <td>${product.quantity}</td>
+                            <td>$ ${product.price}</td>
+                            <td>${product.categories.description}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
+                                <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
+                            </td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            });
+        }
+
         
         function eliminarProducto(id) {
             $.ajax({
@@ -296,17 +453,50 @@
         cargarProductos();
         cargarCategorias();
 
+        $('#btnRst').hide();
+
         $('#productSearch').on('input',function (){
-        var search = $(this).val();
-        if(search){
-            searchProduct(search);
-        }
-        else{
-            cargarProductos();
-        }
-        console.log(search);
+            var search = $(this).val();
+            if(search){
+                searchProduct(search);
+            }
+            else{
+                cargarProductos();
+            }
+            console.log(search);
+
+        });
+
+        $('#F_category_id').change(function() {
+            $('#btnRst').show();
+            var Cid = $(this).val();
+            $.ajax({
+                url:`products/category/${Cid}`,
+                method: `GET`,
+                success: function(data) {
+                    const tableBody = $('#table-body-products');
+                    tableBody.empty();
+                    data.forEach(product => {
+                        const row = `<tr class="row row-cols-6">
+                            <td>${product.name}</td>
+                            <td>${product.description}</td>
+                            <td>${product.quantity}</td>
+                            <td>$ ${product.price}</td>
+                            <td>${product.categories.description}</td>
+                            <td>
+                                <button class="btn btn-warning" onclick="obtenerDatos(${product.id})" data-bs-toggle="modal" data-bs-target="#editProductModal" >Actualizar</button>
+                                <button class="btn btn-danger" onclick="eliminarProducto(${product.id})">Eliminar</button>
+                            </td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                },
+                error: function(error){
+                    console.log(error)
+                }
+            })
+        });
     });
-});
 
 
 

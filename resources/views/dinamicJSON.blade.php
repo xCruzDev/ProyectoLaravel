@@ -7,23 +7,27 @@
 <div class="container">
     <h2 class="text-center">JSON DINAMICO</h2><br>
     <div class="row row-cols-2" style="margin-bottom: 20px">
-        Key:
-        <input class="form-control" type="text" id="txbKey"><br>
-        Value:
-        <input class="form-control" type="text" id="txbVal" style="margin-bottom: 15px">
-        <div class="col">
+        <div class="row">
             <button class="btn btn-primary" id="addObject">Agregar Datos Al Objeto</button>
+        </div>
+        <div class="row">
             <button class="btn btn-secondary" id="newObject">Crear Nuevo Objeto</button>
+        </div><br><br>
+        <div class="col">
+            Key:
+            <input class="form-control" type="text" id="txbKey"><br>
+            Value:
+            <input class="form-control" type="text" id="txbVal" style="margin-bottom: 15px">  
+            objetos:
+            <select class="form-select" id="cbxObj" style="margin-bottom: 20px">
+            <option selected disabled hidden>-- Seleciona un Objeto --</option>
+            </select>
         </div>
     </div>
     <div>
-        objetos:
-        <select class="form-select" id="cbxObj" style="margin-bottom: 20px">
-        <option selected disabled hidden>-- Seleciona un Objeto --</option>
-        </select>
         <h3>Datos del objeto Seleccionado</h3><br>
         <table class="table table-hover table-striped">
-            <thead class="table-info">
+            <thead class="table-primary">
                 <tr class="row row-cols-2">
                     <th>Key</th>
                     <th>Value</th>    

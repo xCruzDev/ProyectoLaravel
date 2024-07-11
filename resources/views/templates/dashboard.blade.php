@@ -24,9 +24,9 @@
                 <a href="/mainDashboard" class="nav-link" style="color: white; font-size: 25px">Dashboard</a><br>
 
                 <ul class="nav flex-column">
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link textlk" href="/tblusers">Prueba Tabla</a>
-                    </li><br>   
+                    </li><br>    --}}
                     <li>
                         <a class="nav-link textlk" href="/products">Productos</a>
                     </li>
@@ -34,14 +34,14 @@
                         <a class="nav-link textlk" href="/categories">Categorias</a>
                     </li><br>
                     <li>
-                        <a class="nav-link textlk" href="/clients">Clientes</a>
+                        {{-- <a class="nav-link textlk" href="/clients">Clientes</a>
                     </li>
                     <li>
                         <a class="nav-link textlk" href="/addresses">Direcciones</a>
                     </li>
                     <li>
                         <a class="nav-link textlk" href="">Pedidos</a>
-                    </li>
+                    </li> --}}
                 </ul>    
             </div>
         </div>

@@ -41,18 +41,23 @@ Route::get('/products/get/{id}',[ProductsController::class,'show']); // obtener 
 Route::post('/products/new',[ProductsController::class,'newProduct']); // registrar datos
 Route::post('/products/update/',[ProductsController::class,'updateProduct']); // actualizar dato/s
 Route::get('/products/delete/{id}',[ProductsController::class,'destroyProduct']); // eliminar datos
-
 Route::get('/products/search/{name}',[ProductsController::class,'searchProduct']);
+Route::get('/products/category/{Cid}',[ProductsController::class, 'categoryProducts']);
 Route::get('/products/filter/product/ASC',[ProductsController::class,'productsASC']);
 Route::get('/products/filter/product/DESC',[ProductsController::class,'productsDESC']);
 Route::get('/products/filter/quantity/ASC',[ProductsController::class,'quantASC']);
 Route::get('/products/filter/quantity/DESC',[ProductsController::class,'quantDESC']);
-
-
+Route::get('/products/filter/price/ASC',[ProductsController::class,'priceASC']);
+Route::get('/products/filter/price/DESC',[ProductsController::class,'priceDESC']);
 
 
 Route::get('/categories',[CategoriesController::class,'view']);
 Route::get('/categories/get',[CategoriesController::class,'index']);
+Route::get('/categories/get/{id}',[CategoriesController::class,'show']); // obtener datos especifico ID
+Route::post('/categories/new',[CategoriesController::class,'newCategory']); // registrar datos
+Route::post('/categories/update/',[CategoriesController::class,'updateCategory']); // actualizar dato/s
+Route::get('/categories/delete/{id}',[CategoriesController::class,'destroyCategory']); // eliminar datos
+
 
 
 
