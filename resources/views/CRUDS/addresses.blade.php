@@ -15,66 +15,65 @@
     <div class="row row-cols-3">
         <div class="col"></div>
         <div class="col text-center">
-            <form action="{{ url('/addresses') }}" method="GET">
-                <label for="user_name" style="font-size: 125%; margin-bottom: 10px">Ingresa Nombre de Usuario</label><br>
-                <input class="form-control" type="text" id="user_name" name="user_name" value="{{ request('user_name') }}"><br>
-                <button type="submit" class="btn btn-success" style="width: 50%">Buscar</button>
-            </form>
+            <label for="user_name" style="font-size: 125%; margin-bottom: 10px">Ingresa Nombre de Usuario</label><br>
+            <input class="form-control" type="text" id="user_name" name="user_name" ><br>
+            <button type="submit" class="btn btn-success" onclick="obtenerDirecciones()" style="width: 50%">Buscar</button>
         </div>
         <div class="col"></div>
     </div><br>
-</div>
 
-@if ($results -> isNotEmpty())
-<div class="container text-center">
-    <table id="table-clients" class="table table-dark table-striped">
-        <thead>
-            <tr class="row row-cols-7">
-                <th>Calle</th>
-                <th>Numero</th>
-                <th>Codigo Postal</th>
-                <th>Ciudad</th>
-                <th>Pais</th>
-                <th>Principal</th>
-                <th>Accion</th>    
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($results as $result)
-            <tr class="row row-cols-7">
-                <th>{{ $result->STREET }}</th>
-                <th>{{ $result->NUMBER_EXT }}</th>
-                <th>{{ $result->ZIP_CODE }}</th>
-                <th>{{ $result->CITY }}</th>
-                <th>{{ $result->COUNTRY }}</th>
-                <th>{{ $result->PRINCIPAL }}</th>
-                <th>
-                    <button>Edit</button>
-                    <button>X</button>
-                </th>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div>
+        <table id="table-address" class="table table-dark table-striped text-center">
+            <thead>
+                <tr class="row row-cols-7">
+                    <th class="col">Calle</th>
+                    <th class="col">Numero</th>
+                    <th class="col">Codigo Postal</th>
+                    <th class="col">Ciudad</th>
+                    <th class="col">Pais</th>
+                    <th class="col">Principal</th>
+                    <th class="col">Accion</th>    
+                </tr>
+            </thead>
+            <tbody id="tbody-addresses">
+            </tbody>
+        </table>    
+    </div>
 </div>
-@else
-@endif
+@endsection
 
-<div class="container text-center">
-    <table id="table-clients" class="table table-dark table-striped">
-        <thead>
-            <tr class="row row-cols-6">
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Saldo</th>
-                <th>Limite de Credito</th>
-                <th>Descuento</th>    
-            </tr>
-        </thead>
-        <tbody>
+@section('js')
+    <script>
+        function obtenerDirecciones(){
+            $('#table-address').show();
+            var user_name = $('#user_name').val();
+            $.ajax({
+                url: `/addresses/show/${user_name}`,
+                method: `GET`,
+                success: function(data) {
+                    const tableBody = $('#tbody-addresses');
+                    tableBody.empty();
+                    data.forEach(address => {
+                        const row = `<tr class="row row-cols-7">
+                            <td class="col">${address.street}</td>
+                            <td class="col">${address.number_ext}</td>
+                            <td class="col">${address.zip_code}</td>
+                            <td class="col">${address.city}</td>
+                            <td class="col">${address.country}</td>
+                            <td class="col">${address.principal}</td>
+                            <td class="col">
+                                <button class="btn btn-warning" onclick="obtenerDatos(${address.id})" data-bs-toggle="modal" data-bs-target="#editCategoryModal" >Actualizar</button>
+                                <button class="btn btn-danger" onclick="eliminarCategoria(${address.id})">X</button>
+                            </td>
+                        </tr>`;
+                        tableBody.append(row);
+                    });
+                }
+            });
+        }
 
-        </tbody>
-    </table>
-</div>
+        $(document).ready(function() {
+            $('#table-address').hide();
+        })
+    </script>
 @endsection

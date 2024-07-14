@@ -10,6 +10,8 @@ class clients extends Model
 
     protected $table = 'clients';
     protected $primaryKey = 'id';
+    protected $fillable = ['user_name','name','last_name','balance','credit_limit','discount'];
+    public $timestamps = false;
 
     use HasFactory;
     public function addresses() {

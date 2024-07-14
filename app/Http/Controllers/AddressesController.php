@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\addresses;
 use App\Models\clients;
+use Illuminate\Support\Facades\DB;
+
 
 class AddressesController extends Controller
 {
@@ -12,25 +14,24 @@ class AddressesController extends Controller
         return view ('cruds.addresses');
     }
 
-    public function show(Request $request)
+    public function show($userName)
     {
-        $userName = $request->input('user_name');
 
-        $results = proyectolaravel::table('addresses')
+        $results = DB::table('addresses')
             ->join('clients', 'addresses.client_id', '=', 'clients.id')
             ->when($userName, function ($query, $userName) {
                 return $query->where('clients.user_name', $userName);
             })
             ->select(
-                'addresses.street as STREET',
-                'addresses.number_ext as NUMBER_EXT',
-                'addresses.zip_code as ZIP_CODE',
-                'addresses.city as CITY',
-                'addresses.country as COUNTRY',
-                'addresses.principal as PRINCIPAL?'
+                'addresses.street',
+                'addresses.number_ext',
+                'addresses.zip_code',
+                'addresses.city',
+                'addresses.country',
+                'addresses.principal'
             )
             ->get();
 
-        return view('.addresses.show', compact('results'));
+        return response()->json($results);
     }
 }   

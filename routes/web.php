@@ -9,13 +9,11 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\AddressesController;
  
 
-Route::get('/', function () {
-    return view('inicio');
-});
 
-Route::get('/login', function () {
-    return view('login');
-});
+
+Route::view('/','inicio');
+
+Route::view('/login','login');
 
 Route::get('/classes', function () {
     return view('clases');
@@ -67,7 +65,7 @@ Route::get('/clients/insert',[ClientsController::class,'store']);  /*ruta para l
 Route::get('/get-clients/{id}',[ClientsController::class,'show']);
 
 Route::get('/addresses',[AddressesController::class,'view']);
-Route::get('/addresses/show{request}',[AddressesController::class,'show']);
+Route::get('/addresses/show/{user_name}',[AddressesController::class,'show']);
 
 Route::get('/tblusers',[TblUsersController::class,'index']);
 Route::get('/get-tblusers/{id}',[TblUsersController::class,'show']);
