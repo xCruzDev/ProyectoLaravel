@@ -91,21 +91,7 @@
                 <th class="col">Accion</th>    
             </tr>
         </thead>
-        <tbody>
-            @foreach ($clients as $client)
-                <tr data-id="{{$client->id}}" class="row row-cols-7">
-                    <td class="col">{{$client->user_name}}</td>
-                    <td class="col">{{$client->name}}</td>
-                    <td class="col">{{$client->last_name}}</td>
-                    <td class="col">{{$client->balance}}</td>
-                    <td class="col">{{$client->credit_limit}}</td>
-                    <td class="col">{{$client->discount}}%</td>
-                    <td class="col">
-                        <button class="btn btn-warning">Edit</button>
-                        <button class="btn btn-danger">X</button>
-                    </td>
-                </tr>                
-            @endforeach
+        <tbody id="tbody-matches">
         </tbody>
     </table>
 </div>
