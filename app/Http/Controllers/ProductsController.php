@@ -10,7 +10,7 @@ use Exception;
 class ProductsController extends Controller
 {
     public function view(){
-        return view('cruds.products');
+        return view('CRUDS.products');
     }
 
     public function index() {

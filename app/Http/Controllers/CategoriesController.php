@@ -12,7 +12,7 @@ class CategoriesController extends Controller
 {
     public function view(){
 
-        return view('cruds.categories');
+        return view('CRUDS.categories');
     }
 
     public function index() {
