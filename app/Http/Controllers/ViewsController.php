@@ -33,11 +33,11 @@ class ViewsController extends Controller
     // // // // // // // // // // // // //
 
     public function productsView() {
-        return view('cruds.products');
+        return view('CRUDS.products');
     }
 
     public function categoriesView() {
-        return view('cruds.categories');
+        return view('CRUDS.categories');
     }
 
     
